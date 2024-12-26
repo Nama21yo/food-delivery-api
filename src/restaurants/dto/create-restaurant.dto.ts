@@ -1,3 +1,10 @@
+import {
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsPhoneNumber,
+  IsString,
+} from 'class-validator';
 import { Category } from '../schemas/restaurant.schema';
 
 /*
@@ -7,10 +14,27 @@ the DTO schema by using TypeScript interfaces,
 or by simple classes.
 */
 export class CreateRestaurantDto {
+  @IsNotEmpty()
+  @IsString()
   readonly name: string;
+
+  @IsNotEmpty()
+  @IsString()
   readonly description: string;
+
+  @IsNotEmpty()
+  @IsEmail({}, { message: 'Please enter correct Email Address' })
   readonly email: string;
+
+  @IsNotEmpty()
+  @IsPhoneNumber('US')
   readonly phoneNo: number;
+
+  @IsNotEmpty()
+  @IsString()
   readonly address: string;
+
+  @IsNotEmpty()
+  @IsEnum(Category, { message: 'Please enter correct Category' })
   readonly category: Category;
 }
